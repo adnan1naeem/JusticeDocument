@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import TextItem from './TextItem'
-import './App.css';
+import TextField from '@material-ui/core/TextField';
+import  {styles} from  './styles.js';
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
+import { CardContent } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
 
 // const DATA_SIZE_HALF = "half"
 const DATA_SIZE_FULL = "full"
@@ -12,6 +17,8 @@ function App() {
   const [data, setData] = useState([])
   const [value, setValue] = useState(0)
   const [searchInput, setSearchInput] = useState("")
+  const [showMore,setShowMore] = useState(true);
+
 
   /** DO NOT CHANGE THE FUNCTION BELOW */
   useEffect(() => {
@@ -36,32 +43,39 @@ function App() {
     fetchData()
   }, [])
 
+  
   const handleChange = e => {
     setSearchInput(e.target.value)
   }
 
   return (
-    <div className="App">
-      <h2>JT Online Book</h2>
-      <div>
-        <input type="text" placeholder="Search text" value={searchInput} onChange={handleChange}/>
-      </div>
+    <div style={styles.container}>
+      <Card style={styles.Card}>
+       <CardHeader
+        title="JT Online Book"
+        desc
+      /> 
+     <CardContent>
+        {/* added style textfield for searching  the text */}
+        <TextField style={styles.field} onChange={handleChange}  value={searchInput}  placeholder='Search Text' id="standard-basic" label="Search" /> 
      {
        data.map((row, i) => {
-        return (<p key={`p${i}`}>
+        return (<div  key={`p${i}`}>
           {row.map((textitem, j) => {
             if (searchInput.length > 0 && textitem.text.search(searchInput) === -1) {
               return null;
             }
 
             return (
-            <>
               <TextItem key={`${i}${j}`} value={value} data={textitem}/>
-            </>)
+            )
           })}
-        </p>)
+        </div>)
        })
      }
+     </CardContent>
+
+     </Card>
     </div>
   );
 }

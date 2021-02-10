@@ -1,19 +1,20 @@
 import React from "react";
 import "./TextItem.css";
+import Typography from '@material-ui/core/Typography';
 
 /** Component for each word controlling highlight state. */
-function TextItem(props) {
+function TextItem({data,value}) {
     const getHighlight = () => {
-        if ((Math.floor(props.data.info.start / 2000) % props.value) === 0) {
+        if ((Math.floor(data.info.start / 2000) % value) === 0) {
             return "highlight"
         }
         return ""
     }
 
   return (
-      <span className={getHighlight()} contentEditable={true} suppressContentEditableWarning={true}>
-        {props.data.text}{" "}
-      </span>
+        <Typography suppressContentEditableWarning={true} className={getHighlight()} contentEditable={true}   color="textSecondary" component="span">
+        {data.text}{" "}
+      </Typography>
   );
 }
 
