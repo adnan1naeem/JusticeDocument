@@ -6,6 +6,8 @@ import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import { CardContent } from '@material-ui/core';
 import TablePagination from '@material-ui/core/TablePagination';
+import MuiAlert from '@material-ui/lab/Alert';
+import Snackbar from '@material-ui/core/Snackbar';
 
 // const DATA_SIZE_HALF = "half"
 const DATA_SIZE_FULL = "full"
@@ -20,6 +22,8 @@ function App() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage,] = React.useState(10);
   const [searchInput, setSearchInput] = useState("")
+  const [open, setOpen] = React.useState(false);
+  
 
   /** DO NOT CHANGE THE FUNCTION BELOW */
   useEffect(() => {
@@ -50,6 +54,13 @@ function App() {
   }, [])
 
   
+  const SuccessState=(e)=>setOpen(!open);
+
+
+  const  Alert=(props)=> {
+        return <MuiAlert elevation={6} variant="filled" {...props} />;
+   }
+
   const handleChange = e => {
     setSearchInput(e.target.value)
   }
@@ -59,6 +70,19 @@ function App() {
 
   return (
     <div style={styles.container}>
+         {
+         open
+          ?
+          <div style={{width:500}}>
+          <Snackbar open={open} autoHideDuration={1500} onClose={SuccessState}>
+            <Alert  onClose={SuccessState} severity="success">
+              {'The row is updated successfully in api'}
+            </Alert>
+          </Snackbar>
+          </div>
+          :
+          null
+        }
       <Card style={styles.Card}>
         <CardHeader
           title="JT Online Book"
@@ -104,7 +128,7 @@ function App() {
                 if (searchInput.length > 0 && textitem.text.search(searchInput) === -1) {
                   return null;
                 }
-                return  <TextItem key={j} rows={rows}  rowId={i} value={value} data={textitem}/>
+                return  <TextItem  open={open} SuccessState={SuccessState} key={j} rows={rows}  rowId={i} value={value} data={textitem}/>
               }
             )}
             </React.Fragment>

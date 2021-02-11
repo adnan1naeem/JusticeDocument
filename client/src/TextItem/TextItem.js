@@ -1,16 +1,12 @@
 import React from "react";
 import "./TextItem.css";
 import Typography from '@material-ui/core/Typography';
-import MuiAlert from '@material-ui/lab/Alert';
-import Snackbar from '@material-ui/core/Snackbar';
 
 
 /** Component for each word controlling highlight state. */
-function TextItem({rows,rowId,data,value}) {
+function TextItem({SuccessState, rows,rowId,data,value}) {
   const [focusedValue,setFocusState]= React.useState('');
   const [onChange,onSetChange]= React.useState('');
-  const [success,onSuccess]= React.useState('');
-  const [open, setOpen] = React.useState(false);
 
   const getHighlight = () => {
       if ((Math.floor(data.info.start / 2000) % value) === 0) {
@@ -19,7 +15,6 @@ function TextItem({rows,rowId,data,value}) {
         return ""
     }
   
-    const SuccessState=(e)=>setOpen(false);
 
 
    // getting value after update 
@@ -55,9 +50,7 @@ function TextItem({rows,rowId,data,value}) {
             body:JSON.stringify({rows,rowId})
         });
         if(response.status==200){
-          setOpen(true);
-          onSuccess('The row is updated successfully')
-          alert(' sending data to api loading');
+          SuccessState();
         }
 
 
@@ -71,11 +64,7 @@ function TextItem({rows,rowId,data,value}) {
   */
   return (
         <React.Fragment>
-          <Snackbar open={open} autoHideDuration={3000} onClose={SuccessState}>
-              <MuiAlert elevation={6} variant="filled" onClose={SuccessState} severity="success">
-                {success}
-              </MuiAlert>
-          </Snackbar>
+
         <Typography  
           onInput={onInput}
           onBlur={onBlur(rowId)}
