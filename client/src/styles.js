@@ -11,6 +11,10 @@ export const styles={
         height:'100%',
     
     },
+    LoadingState:{
+        marginLeft:300,
+        marginTop:100
+    },
     Card:{
         backgroundColor:'white',
         overflow:'auto', 
