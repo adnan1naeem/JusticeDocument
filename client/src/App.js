@@ -100,7 +100,7 @@ function App() {
             }
                 <CardActions>
                   <TablePagination
-                    rowsPerPageOptions={[10, 25, 100]}
+                    rowsPerPageOptions={[]}
                     component="div"
                     count={data.length}
                     rowsPerPage={rowsPerPage}
