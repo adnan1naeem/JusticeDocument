@@ -6,7 +6,6 @@ import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import { CardContent } from '@material-ui/core';
 import TablePagination from '@material-ui/core/TablePagination';
-import CardActions from '@material-ui/core/CardActions';
 
 // const DATA_SIZE_HALF = "half"
 const DATA_SIZE_FULL = "full"
@@ -54,7 +53,7 @@ function App() {
   const handleChange = e => {
     setSearchInput(e.target.value)
   }
-  const handleChangePage = (event, newPage) => {
+  const handleChangePage = (_event, newPage) => {
     setPage(newPage);
   };
 
@@ -66,54 +65,57 @@ function App() {
         >
           <TextField style={styles.field} onChange={handleChange}  value={searchInput}  placeholder='Search Text' id="standard-basic" label="Search" /> 
         </CardHeader> 
-          <CardContent style={{width:'100%'}}>
-            {/* added style textfield for searching  the text */}
-            <TextField style={styles.field} onChange={handleChange}  value={searchInput}  placeholder='Search Text' id="standard-basic" label="Search" /> 
-          </CardContent>
           
-          <CardContent>
-          {
-            loading
-              ?
-              // added loading state when data in being fetched from api 
-              <div style={styles.LoadingState}>loading..... </div>
-              :
-              // displaying  content
-             <>
-              {
-              data.map((rows, i) => {
-                return (<>
-                {
-                rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((textitem, j) => {
-                  if (searchInput.length > 0 && textitem.text.search(searchInput) === -1) {
-                    return null;
-                  }
-                  return  <TextItem key={j} value={value} data={textitem}/>
-                }
-              )}
-              </>
-               )
-            })
+        <CardContent>
+          {/* added style textfield for searching  the text */}
+
+          <TextField style={styles.field} onChange={handleChange}  value={searchInput}  placeholder='Search Text' id="standard-basic" label="Search" /> 
+          
+          {  
+            // The best approach to  optimize your list or showing data is through  pagination.
+            // it helps you to performs operations or calculations on visible data
           }
-            {  // The best approach to  optimize your list or showing data is through  pagination.
-              // it helps you to performs operations or calculations on visible data
-            }
-                <CardActions>
-                  <TablePagination
-                    rowsPerPageOptions={[]}
-                    component="div"
-                    count={data.length}
-                    rowsPerPage={rowsPerPage}
-                    page={page}
-                    onChangePage={handleChangePage}
-                  />
-                </CardActions>
-            </>
-          }
-        
+          <TablePagination
+              rowsPerPageOptions={[]}
+              component="div"
+              count={data.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              onChangePage={handleChangePage}
+            />
         </CardContent>
-     </Card>
-    </div>
+
+        <CardContent>
+        {
+          loading
+            ?
+            // added loading state when data in being fetched from api 
+            <div style={styles.LoadingState}>loading..... </div>
+            :
+            // displaying  content
+            <React.Fragment>
+            {
+            data.map((rows, i) => {
+              return (
+                <React.Fragment>
+              {
+              rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((textitem, j) => {
+                if (searchInput.length > 0 && textitem.text.search(searchInput) === -1) {
+                  return null;
+                }
+                return  <TextItem key={j} value={value} data={textitem}/>
+              }
+            )}
+            </React.Fragment>
+              )
+          })
+        }
+          </React.Fragment>
+        }
+      
+      </CardContent>
+    </Card>
+  </div>
   );
 }
 

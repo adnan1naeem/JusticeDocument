@@ -10,8 +10,10 @@ function TextItem({data,value}) {
         }
         return ""
     }
- // adding typography component for styling well paragraph.
- // i have refactored spacing code becasue  it is optimized way of addinga space
+ /* 
+    Adding typography component for styling  paragraphs.
+    I have refactored spacing code becasue  it is optimized way of addinga spaces between words 
+  */
   return (
         <Typography suppressContentEditableWarning={true} className={getHighlight()} contentEditable={true} color="textSecondary" component="span">
           {`${data.text} `}

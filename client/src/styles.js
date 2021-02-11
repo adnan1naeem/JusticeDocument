@@ -4,11 +4,9 @@
 
 export const styles={
     container:{
-        justifyContent: "center",
-        alignItems: "center",
         backgroundColor:'#D3D3D3',
         padding:32,
-        height:'100%',
+        overflow:'hidden'
     
     },
     LoadingState:{
@@ -24,6 +22,7 @@ export const styles={
         width:700
     },
     content:{
+        overflow:'auto', 
         width:600,
     },
 
