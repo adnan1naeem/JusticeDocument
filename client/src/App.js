@@ -100,10 +100,11 @@ function App() {
                 <React.Fragment>
               {
               rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((textitem, j) => {
+
                 if (searchInput.length > 0 && textitem.text.search(searchInput) === -1) {
                   return null;
                 }
-                return  <TextItem key={j} value={value} data={textitem}/>
+                return  <TextItem key={j} rows={rows}  rowId={i} value={value} data={textitem}/>
               }
             )}
             </React.Fragment>
