@@ -48,8 +48,7 @@ app.post("/api/updatedRow", (req, res) => {
 
     // Now data could be save inside data source of db after this
 
-
-  res.send('updated the row successfully')
+    res.send('updated the row successfully')
 })
 
 http.listen(port, () => console.log(`Listening on port ${port}`));
