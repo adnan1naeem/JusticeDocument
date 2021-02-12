@@ -74,7 +74,7 @@ function App() {
          {
          open
           ?
-          <div style={{width:500}}>
+          <div>
           <Snackbar open={open} autoHideDuration={3000} onClose={SuccessState}>
             <Alert  onClose={SuccessState} severity="success">
               {'The row is updated successfully in api'}
